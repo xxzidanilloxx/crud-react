@@ -41,7 +41,7 @@ const Admin = () => {
       ) : (
         user.map((user) => (
           <div className="user" key={user.id}>
-            <h2>{user.firstName}</h2>
+            <h2>{`${user.firstName} ${user.lastName}`}</h2>
             <div className="actions">
               <Link className="btn edit-btn" to={`/users/edit/${user.id}`}>
                 Editar

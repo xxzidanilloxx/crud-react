@@ -14,6 +14,11 @@
   padding-bottom: .5rem;
 }
 
+.admin h2,
+.admin p {
+    margin-bottom: 1rem;
+}
+
 .actions {
   display: flex;
   gap: 1rem;

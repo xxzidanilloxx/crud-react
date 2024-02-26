@@ -30,8 +30,9 @@ const User = () => {
       <p>Carregando...</p>
       ) : ( 
       <div className="user">
-        <h2>{user.firstName}</h2>
+        <h2>{`${user.firstName} ${user.lastName}`}</h2>
           <p> CPF: {user.cpf}</p>
+          <p> Data de nascimento: {user.birthDate}</p>
           <p> Email: {user.email}</p>
       </div>
       )}

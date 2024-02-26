@@ -10,6 +10,7 @@ const EditUser = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [cpf, setCpf] = useState("");
+  const [birthDate, setBirthDate] = useState("");
   const [email, setEmail] = useState("");
 
   const { id } = useParams();
@@ -25,6 +26,7 @@ const EditUser = () => {
       setFirstName(data.firstName);
       setLastName(data.lastName);
       setCpf(data.cpf);
+      setBirthDate(data.birthDate);
       setEmail(data.email);
 
     } catch (error) {
@@ -35,7 +37,7 @@ const EditUser = () => {
   const editUser = async (e) => {
     e.preventDefault();
 
-    const user = { firstName, lastName, cpf, email };
+    const user = { firstName, lastName, cpf, birthDate, email };
 
     await userFetch.put(`/users/${id}`, user);
 
@@ -85,6 +87,17 @@ const EditUser = () => {
           value={cpf || ""}
         />
       </div>
+      <div className="form-control">
+          <label htmlFor="birthDate">Data de nascimento:</label>
+          <input
+            type="text"
+            name="birthDate"
+            id="birthDate"
+            placeholder="Digite a data de nascimento"
+            onChange={(e) => setBirthDate(e.target.value)}
+            value={birthDate || ""}
+          />
+        </div>
       <div className="form-control">
         <label htmlFor="email">Email:</label>
         <input

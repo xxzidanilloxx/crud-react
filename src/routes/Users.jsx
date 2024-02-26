@@ -32,7 +32,7 @@ const Users = () => {
         users.map((user) => (
           <div className="user" key={user.id}>
             <Link to={`/users/${user.id}`}> 
-            <h2>{user.firstName}</h2>
+            <h2>{`${user.firstName} ${user.lastName}`}</h2>
             </Link>
           </div>
         ))

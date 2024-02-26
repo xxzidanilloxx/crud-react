@@ -9,13 +9,14 @@ const NewUser = () => {
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [cpf, setCpf] = useState(0);
+  const [cpf, setCpf] = useState("");
+  const [birthDate, setBirthDate] = useState("");
   const [email, setEmail] = useState("");
 
   const createUser = async (e) => {
     e.preventDefault();
 
-    const user = { firstName, lastName, cpf, email };
+    const user = { firstName, lastName, cpf, birthDate, email };
 
     await userFetch.post("/users", user);
 
@@ -56,6 +57,16 @@ const NewUser = () => {
             id="cpf"
             placeholder="Digite o CPF"
             onChange={(e) => setCpf(e.target.value)}
+          />
+        </div>
+        <div className="form-control">
+          <label htmlFor="birthDate">Data de nascimento:</label>
+          <input
+            type="text"
+            name="birthDate"
+            id="birthDate"
+            placeholder="Digite a data de nascimento"
+            onChange={(e) => setBirthDate(e.target.value)}
           />
         </div>
         <div className="form-control">

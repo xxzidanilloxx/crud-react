@@ -1,10 +1,48 @@
+import App from "./App.jsx"
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
+
+import { createBrowserRouter, RouterProvider, Route } from 'react-router-dom'
+
+import NewUser from './routes/NewUser.jsx'
+import Users from './routes/Users.jsx'
+import User from './routes/User.jsx'
+import Admin from './routes/Admin.jsx'
+import EditUser from './routes/EditUser.jsx'
+
 import './index.css'
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+const router = createBrowserRouter([
+  {
+
+    element: <App/>,
+    children: [
+      {
+        path: "/new-user",
+        element: <NewUser/>,
+      },
+      {
+        path: "/users",
+        element: <Users/>,
+      },
+      {
+        path: "/users/:id",
+        element: <User/>,
+      },
+      {
+        path: "/admin",
+        element: <Admin/>
+      },
+      {
+        path: "/users/edit/:id",
+        element: <EditUser/>,
+      }
+    ]
+  }
+])
+
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>,
 )

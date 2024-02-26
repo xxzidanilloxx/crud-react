@@ -1,0 +1,65 @@
+.admin h1 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.admin{
+  background-color: #212121;
+  border-radius: 10px;
+  padding: 20px 20px 5px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: .5rem;
+  padding-bottom: .5rem;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.edit-btn {
+  background-color: #b3b3b3;
+  color: #000000;
+  border: 1px solid #b3b3b3;
+  opacity: 1;
+  padding: .5rem 1rem;
+  border-radius: 1rem;
+  max-width: 200px;
+  text-align: center;
+  cursor: pointer;  
+  transition: 0.3s;
+  margin: 5px center;
+  margin-right: 0;
+  
+  display: block;
+}
+
+.edit-btn:hover {
+  background-color: #fff;
+  color: #000000;
+  border: 1px solid #fff;
+}
+
+.delete-btn {
+  background-color: #b3b3b3;
+  color: #000000;
+  border: 1px solid #b3b3b3;
+  opacity: 1;
+  padding: .5rem 1rem;
+  border-radius: 1rem;
+  max-width: 200px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s;
+  margin: 5px center;
+  margin-left: 0;
+  display: block;
+}
+
+.delete-btn:hover {
+  background-color: #fff;
+  color: #000000;
+  border: 1px solid #fff;
+}

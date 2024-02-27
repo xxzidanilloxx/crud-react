@@ -1,6 +1,6 @@
 import React from "react";
-import reactLogo from '/home/danillo/wksp_github/crud-react/src/assets/react.svg'
-import viteLogo from '/home/danillo/wksp_github/crud-react/public/vite.svg'
+import reactLogo from '../assets/react.svg'
+import viteLogo from '../../public/vite.svg'
 
 import './Home.css'
 

@@ -43,7 +43,7 @@ const EditUser = () => {
 
     alert('Usuario atualizado com sucesso.');
 
-    navigate("/users");
+    navigate("/");
   };
 
   useEffect(() => {

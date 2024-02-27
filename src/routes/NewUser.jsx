@@ -22,7 +22,7 @@ const NewUser = () => {
 
     alert('Usuário cadastrado com sucesso.');
 
-    navigate("/new-user");
+    navigate("/");
   };
 
   return (

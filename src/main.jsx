@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom/client'
 
 import { createBrowserRouter, RouterProvider, Route } from 'react-router-dom'
 
+import Home from './routes/Home.jsx'
 import NewUser from './routes/NewUser.jsx'
 import Users from './routes/Users.jsx'
 import User from './routes/User.jsx'
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
 
     element: <App/>,
     children: [
+      {
+        path: "/",
+        element: <Home/>,
+      },
       {
         path: "/new-user",
         element: <NewUser/>,

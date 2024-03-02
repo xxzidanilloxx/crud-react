@@ -10,24 +10,53 @@
 }
 
 form {
-    max-width: 500px;
     width: 100%;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
 }
 
 .form-control {
     display: flex;
     flex-direction: column;
     margin-bottom: 1rem;
+    margin-right: 5px;
 }
 
 .form-control label {
     margin-bottom: 0.5rem;
+    font-size: 17px;
 }
 
-.form-control input,
-.form-control textarea {
+.form-control input {
     padding: 0.5rem;
     border-radius: 5px;
     border: none;
+    font-size: 17px;
+}
+
+.info{  
+    display: flex;
+}
+
+.size-1{
+    width: 105px;
+}
+
+.size-2{
+    width: 200px;
+}
+
+.size-3{
+    width: 405px;
+}
+
+.size-4{
+    width: 500px;
+}
+
+.input{
+    width: inherit ;
 }

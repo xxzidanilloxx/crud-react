@@ -31,9 +31,16 @@ const User = () => {
       ) : ( 
       <div className="user">
         <h2>{`${user.firstName} ${user.lastName}`}</h2>
-          <p> CPF: {user.cpf}</p>
-          <p> Data de nascimento: {user.birthDate}</p>
+          <p> CPF: {user.cpf} Data de nascimento: {user.birthDate}</p>
           <p> Email: {user.email}</p>
+          <ul>
+            {user.addressList.map((address) => (
+              <li key={address.id}>
+                <p>Logradouro: {address.street} Número: {address.number}</p>
+                <p>Bairro: {address.district} Cidade: {address.city} Estado: {address.state}</p>
+              </li>
+            ))}
+          </ul>
       </div>
       )}
     </div>

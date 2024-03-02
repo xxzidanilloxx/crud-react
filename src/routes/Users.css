@@ -32,6 +32,7 @@
     border-radius: 1rem;
     max-width: 200px;
     text-align: center;
+    font-size: 17px;
     cursor: pointer;
     transition: 0.3s;
     margin: 10px auto;
@@ -42,4 +43,8 @@
     background-color: #fff;
     color: #000000;
     border: 1px solid #fff;
+}
+
+.font-size-1 {
+    font-size: 17px;
 }

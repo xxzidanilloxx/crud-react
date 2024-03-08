@@ -1,68 +1,152 @@
 import userFetch from "../axios/config";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2';
 
 import "./NewUser.css";
 
 const EditUser = () => {
   const navigate = useNavigate();
-
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [cpf, setCpf] = useState("");
-  const [birthDate, setBirthDate] = useState("");
-  const [email, setEmail] = useState("");
-  const [street, setStreet] = useState("");
-  const [number, setNumber] = useState("");
-  const [district, setDistrict] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-
   const { id } = useParams();
+
+  const [formValues, setFormValues] = useState({
+    firstName: "",
+    lastName: "",
+    cpf: "",
+    birthDate: "",
+    email: "",
+    street: "",
+    number: "",
+    district: "",
+    city: "",
+    state: "",
+  });
+
+  const [formErrors, setFormErrors] = useState({});
 
   const getUser = async () => {
     try {
       const response = await userFetch.get(`/users/${id}`);
       const data = response.data;
 
-      console.log(data);
-
-      setFirstName(data.firstName);
-      setLastName(data.lastName);
-      setCpf(data.cpf);
-      setBirthDate(data.birthDate);
-      setEmail(data.email);
-      setStreet(data.addressList[0].street);
-      setNumber(data.addressList[0].number); 
-      setDistrict(data.addressList[0].district);
-      setCity(data.addressList[0].city);
-      setState(data.addressList[0].state);
+      setFormValues({
+        firstName: data.firstName,
+        lastName: data.lastName,
+        cpf: data.cpf,
+        birthDate: data.birthDate,
+        email: data.email,
+        street: data.addressList[0].street,
+        number: data.addressList[0].number,
+        district: data.addressList[0].district,
+        city: data.addressList[0].city,
+        state: data.addressList[0].state,
+      });
 
     } catch (error) {
       console.log(error);
     }
   };
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues((prevValues) => ({ ...prevValues, [name]: value }));
+    setFormErrors((prevErrors) => ({ ...prevErrors, [name]: '' }));
+  };
+
   const editUser = async (e) => {
     e.preventDefault();
+    
+    if (!validateForm()) {
+      return;
+    }
 
-    const user = { firstName, lastName, cpf, birthDate, email, addressList: [
-      {
-        street,
-        number,
-        district,
-        city,
-        state,
-      },
-    ],};
+    const user = {
+      firstName: formValues.firstName,
+      lastName: formValues.lastName,
+      cpf: formValues.cpf,
+      birthDate: formValues.birthDate,
+      email: formValues.email,
+      addressList: [
+        {
+          street: formValues.street,
+          number: formValues.number,
+          district: formValues.district,
+          city: formValues.city,
+          state: formValues.state,
+        },
+      ],
+    };
+
 
     await userFetch.put(`/users/${id}`, user);
 
-    alert('Usuario atualizado com sucesso.');
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Usuário atualizado com sucesso.",
+      showConfirmButton: false,
+      timer: 2000,
+    });
 
     navigate("/");
   };
 
+  const validateForm = () => {
+    const errors = {};
+
+    if (!formValues.firstName) {
+      errors.firstName = "Campo não informado";
+    } else if (!/^[A-Z][a-z]*$/.test(formValues.firstName)) {
+      errors.firstName = "Informe o primeiro nome com a primeira letra maiúscula e sem espaços";
+    }
+
+    if (!formValues.lastName) {
+      errors.lastName = "Campo não informado";
+    } else if (!/^[A-Z][a-z]*$/.test(formValues.lastName)) {
+      errors.lastName = "Informe o sobrenome com a primeira letra maiúscula e sem espaços";
+    }
+
+    if (!formValues.cpf) {
+      errors.cpf = "Campo não informado";
+    } else if (!/\d{11}/.test(formValues.cpf)) {
+      errors.cpf = "Digite um CPF válido";
+    }
+
+    if (!formValues.birthDate) {
+      errors.birthDate = "Campo não informado";
+    } 
+
+    if (!formValues.email) {
+      errors.email = "Campo não informado";
+    } else if (!/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}/.test(formValues.email)) {
+      errors.email = "Digite um email válido";
+    }
+
+    if (!formValues.street) {
+      errors.street = "Campo não informado";
+    }
+
+    if (!formValues.number) {
+      errors.number = "Campo não informado";
+    }
+
+    if (!formValues.district) {
+      errors.district = "Campo não informado";
+    }
+
+    if (!formValues.city) {
+      errors.city = "Campo não informado";
+    }
+
+    if (!formValues.state) {
+      errors.state = "Campo não informado";
+    }
+    
+    setFormErrors(errors);
+
+    return Object.keys(errors).length === 0;
+  };
+  
   useEffect(() => {
     getUser();
   }, []);
@@ -71,7 +155,7 @@ const EditUser = () => {
     <div className="new-user">
       <h1>Editar usuário</h1>
       <form onSubmit={(e) => editUser(e)}>
-        <div className="info">
+      <div className="info">
           <div className="form-control size-2">
             <label htmlFor="firstName">Nome:</label>
             <input
@@ -79,9 +163,10 @@ const EditUser = () => {
               name="firstName"
               id="firstName"
               placeholder="Digite aqui"
-              onChange={(e) => setFirstName(e.target.value)}
-              value={firstName || ""}
+              onChange={handleChange}
+              value={formValues.firstName}
             />
+            {formErrors.firstName && <span className="error-message">{formErrors.firstName}</span>}
           </div>
           <div className="form-control size-2">
             <label htmlFor="lastName">Sobrenome:</label>
@@ -90,9 +175,10 @@ const EditUser = () => {
               name="lastName"
               id="lastName"
               placeholder="Digite aqui"
-              onChange={(e) => setLastName(e.target.value)}
-              value={lastName || ""}
+              onChange={handleChange}
+              value={formValues.lastName}
             />
+            {formErrors.lastName && <span className="error-message">{formErrors.lastName}</span>}
           </div>
           <div className="form-control size-2">
             <label htmlFor="cpf">CPF:</label>
@@ -101,9 +187,10 @@ const EditUser = () => {
               name="cpf"
               id="cpf"
               placeholder="Digite aqui"
-              onChange={(e) => setCpf(e.target.value)}
-              value={cpf || ""}
+              onChange={handleChange}
+              value={formValues.cpf}
             />
+            {formErrors.cpf && <span className="error-message">{formErrors.cpf}</span>}
           </div>
         </div>
         <div className="info">
@@ -114,9 +201,10 @@ const EditUser = () => {
               name="birthDate"
               id="birthDate"
               placeholder="Digite aqui"
-              onChange={(e) => setBirthDate(e.target.value)}
-              value={birthDate || ""}
+              onChange={handleChange}
+              value={formValues.birthDate}
             />
+            {formErrors.birthDate && <span className="error-message">{formErrors.birthDate}</span>}
           </div>
           <div className="form-control size-3">
             <label htmlFor="email">Email:</label>
@@ -125,9 +213,10 @@ const EditUser = () => {
               name="email"
               id="email"
               placeholder="Digite aqui"
-              onChange={(e) => setEmail(e.target.value)}
-              value={email || ""}
+              onChange={handleChange}
+              value={formValues.email}
             />
+            {formErrors.email && <span className="error-message">{formErrors.email}</span>}
           </div>
         </div>
         <div className="info">
@@ -138,9 +227,10 @@ const EditUser = () => {
               name="street"
               id="street"
               placeholder="Digite aqui"
-              onChange={(e) => setStreet(e.target.value)}
-              value={street || ""}
+              onChange={handleChange}
+              value={formValues.street}
             />
+            {formErrors.street && <span className="error-message">{formErrors.street}</span>}
           </div>
           <div className="form-control size-1">
             <label htmlFor="number">Número:</label>
@@ -149,9 +239,10 @@ const EditUser = () => {
               name="number"
               id="number"
               placeholder="Digite aqui"
-              onChange={(e) => setNumber(e.target.value)}
-              value={number || ""}
+              onChange={handleChange}
+              value={formValues.number}
             />
+            {formErrors.number && <span className="error-message">{formErrors.number}</span>}
           </div>
         </div>
         <div className="info">        
@@ -162,9 +253,10 @@ const EditUser = () => {
               name="district"
               id="district"
               placeholder="Digite aqui"
-              onChange={(e) => setDistrict(e.target.value)}
-              value={district || ""}
+              onChange={handleChange}
+              value={formValues.district}
             />
+            {formErrors.district && <span className="error-message">{formErrors.district}</span>}
           </div>
           <div className="form-control size-2">
             <label htmlFor="city">Cidade:</label>
@@ -173,9 +265,10 @@ const EditUser = () => {
               name="city"
               id="city"
               placeholder="Digite aqui"
-              onChange={(e) => setCity(e.target.value)}
-              value={city || ""}
+              onChange={handleChange}
+              value={formValues.city}
             />
+            {formErrors.city && <span className="error-message">{formErrors.city}</span>}
           </div>
           <div className="form-control size-2">
             <label htmlFor="state">Estado:</label>
@@ -184,9 +277,10 @@ const EditUser = () => {
               name="state"
               id="state"
               placeholder="Digite aqui"
-              onChange={(e) => setState(e.target.value)}
-              value={state || ""}
+              onChange={handleChange}
+              value={formValues.state}
             />
+            {formErrors.state && <span className="error-message">{formErrors.state}</span>}
           </div>
         </div>
         <input type="submit" value="Editar Usuario" className="btn" />

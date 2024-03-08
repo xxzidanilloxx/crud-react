@@ -1,6 +1,7 @@
 import userFetch from "../axios/config";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Swal from 'sweetalert2';
 
 import "./Admin.css";
 
@@ -18,13 +19,35 @@ const Admin = () => {
   };
 
   const deleteUser = async (id) => {
-    if (window.confirm('Tem certeza de que deseja excluir este usuário?')) {
+    const result = await Swal.fire({
+      title: "Tem certeza?",
+      text: "Você não poderá reverter isso!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sim, excluir!"
+    });
+  
+    if (result.isConfirmed) {
       try {
         await userFetch.delete(`/users/${id}`);
         const filteredUsers = user.filter((user) => user.id !== id);
         setUser(filteredUsers);
+  
+        Swal.fire({
+          title: "Excluído!",
+          text: "O usuário foi excluído.",
+          icon: "success"
+        });
       } catch (error) {
         console.log(error);
+  
+        Swal.fire({
+          title: "Erro!",
+          text: "Ocorreu um erro ao excluir o usuário.",
+          icon: "error"
+        });
       }
     }
   };

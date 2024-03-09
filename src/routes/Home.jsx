@@ -1,13 +1,13 @@
 import React from "react";
 import reactLogo from '../assets/react.svg'
-import viteLogo from '../../public/vite.svg'
+import viteLogo from '/vite.svg'
 
 import './Home.css'
 
 const Home = () => {
   return (
     <div className="home">
-      <h1>CRUD</h1>
+      <h1></h1>
       <p>Este é um projeto simples que consiste no gerenciamento de informações de usuários por intermédio de operações CRUD. </p>
       <div>
         <a href="https://vitejs.dev" target="_blank">

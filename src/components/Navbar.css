@@ -3,16 +3,15 @@
     align-items: center;
     justify-content: space-between;
     padding: 1.8rem 2.5rem;
-    background-color: #000;
+    background-color: #f5f5f5;
 }
 
 .navbar h1 a{
-    opacity: 1;
     font-size: 50px;
 }
 
 .navbar ul{
     display: flex;
     gap: 2rem;
-    font-size: 17px;
+    font-size: 20px;
 }

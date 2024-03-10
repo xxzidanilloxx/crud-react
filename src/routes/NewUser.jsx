@@ -69,15 +69,15 @@ const NewUser = () => {
   const validateForm = () => {
     const errors = {};
 
-    if (!formValues.firstName) {
+    if (!formValues.firstName) {  
       errors.firstName = "Campo não informado";
-    } else if (!/^[A-Za-zÀ-ÖØ-öø-ÿ']{2,}$/.test(formValues.firstName)) {
+    } else if (!/^[A-ZÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ]{1}[a-záàâãéèêíïóôõöúçñ]{1,}$/.test(formValues.firstName)) {
       errors.firstName = "Informe o primeiro nome com a primeira letra maiúscula e sem espaços";
     }
 
     if (!formValues.lastName) {
       errors.lastName = "Campo não informado";
-    } else if (!/^[A-Za-zÀ-ÖØ-öø-ÿ']{2,}$/.test(formValues.lastName)) {
+    } else if (!/^[A-ZÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ]{1}[a-záàâãéèêíïóôõöúçñ]{1,}$/.test(formValues.lastName)) {
       errors.lastName = "Informe o sobrenome com a primeira letra maiúscula e sem espaços";
     }
 

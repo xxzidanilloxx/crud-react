@@ -27,17 +27,17 @@ const User = () => {
   return (
     <div className="user">
       {!user.firstName ? (
-      <p>Carregando...</p>
+      <p>Usuário não encontrado.</p>
       ) : ( 
       <div className="user">
         <h2>{`${user.firstName} ${user.lastName}`}</h2>
-          <p> CPF: {user.cpf} Data de nascimento: {user.birthDate}</p>
+          <p> CPF: {user.cpf} &nbsp; Data de nascimento: {user.birthDate}</p>
           <p> Email: {user.email}</p>
           <ul>
             {user.addressList.map((address) => (
               <li key={address.id}>
-                <p>Logradouro: {address.street} Número: {address.number}</p>
-                <p>Bairro: {address.district} Cidade: {address.city} Estado: {address.state}</p>
+                <p>Logradouro: {address.street} &nbsp; Número: {address.number}</p>
+                <p>Bairro: {address.district} &nbsp; Cidade: {address.city} &nbsp; Estado: {address.state}</p>
               </li>
             ))}
           </ul>

@@ -66,7 +66,7 @@ const NewUser = () => {
     navigate("/");
   };
 
-  const validateForm = () => {
+  const validateForm = async () => {
     const errors = {};
 
     if (!formValues.firstName) {  
@@ -85,6 +85,11 @@ const NewUser = () => {
       errors.cpf = "Campo não informado";
     } else if (!/^\d{11}$/.test(formValues.cpf) || isNaN(formValues.cpf)) {
       errors.cpf = "Digite um CPF válido";
+    } else { 
+      const isDuplicateCPF = await checkDuplicateCPF(formValues.cpf);
+      if (isDuplicateCPF) {
+        errors.cpf = "CPF já cadastrado";
+      }
     }
 
     if (!formValues.birthDate) {
@@ -95,6 +100,11 @@ const NewUser = () => {
       errors.email = "Campo não informado";
     } else if (!/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}/.test(formValues.email)) {
       errors.email = "Digite um email válido";
+    } else {
+      const isDuplicateEmail = await checkDuplicateEmail(formValues.email);
+      if (isDuplicateEmail) {
+        errors.email = "E-mail já cadastrado";
+      }
     }
 
     if (!formValues.street) {
@@ -120,6 +130,26 @@ const NewUser = () => {
     setFormErrors(errors);
 
     return Object.keys(errors).length === 0;
+  };
+
+  const checkDuplicateCPF = async (cpf) => {
+    try {
+      const response = await userFetch.get(`/users?cpf=${cpf}`);
+      return response.data.length > 0;
+    } catch (error) {
+      console.error("Erro ao verificar a duplicidade do CPF:", error);
+      return false;
+    }
+  };
+
+  const checkDuplicateEmail = async (email) => {
+    try {
+      const response = await userFetch.get(`/users?email=${email}`);
+      return response.data.length > 0;
+    } catch (error) {
+      console.error("Erro ao verificar a duplicidade do email:", error);
+      return false;
+    }
   };
 
   return (

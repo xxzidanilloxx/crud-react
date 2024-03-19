@@ -60,7 +60,7 @@ const Admin = () => {
     <div className="admin">
       <h1>Gerenciar usuários</h1>
       {user.length === 0 ? (
-        <p>Carregando...</p>
+        <p>Nenhum usuário cadastrado.</p>
       ) : (
         user.map((user) => (
           <div className="user" key={user.id}>

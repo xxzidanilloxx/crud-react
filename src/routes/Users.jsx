@@ -27,7 +27,7 @@ const Users = () => {
     <div className="user">
       <h1> Usuários cadastrados </h1>
       {users.length === 0 ? (
-        <p>Carregando...</p>
+        <p>Nenhum usuário cadastrado.</p>
       ) : (
         users.map((user) => (
           <div className="user" key={user.id}>

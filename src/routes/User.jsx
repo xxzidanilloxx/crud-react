@@ -31,8 +31,8 @@ const User = () => {
       ) : ( 
       <div className="user">
         <h2>{`${user.firstName} ${user.lastName}`}</h2>
-          <p> CPF: {user.cpf} &nbsp; Data de nascimento: {user.birthDate}</p>
-          <p> Email: {user.email}</p>
+          <p> CPF: {user.cpf} &nbsp; Data de nascimento: {user.birthDate} &nbsp; Ocupação: {user.occupation}</p>
+          <p> Email: {user.email} &nbsp; Celular: {user.phoneNumber}</p>
           <ul>
             {user.addressList.map((address) => (
               <li key={address.id}>

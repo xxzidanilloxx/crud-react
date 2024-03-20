@@ -14,7 +14,9 @@ const EditUser = () => {
     lastName: "",
     cpf: "",
     birthDate: "",
+    occupation: "",
     email: "",
+    phoneNumber: "",
     street: "",
     number: "",
     district: "",
@@ -34,7 +36,9 @@ const EditUser = () => {
         lastName: data.lastName,
         cpf: data.cpf,
         birthDate: data.birthDate,
+        occupation: data.occupation,
         email: data.email,
+        phoneNumber: data.phoneNumber,
         street: data.addressList[0].street,
         number: data.addressList[0].number,
         district: data.addressList[0].district,
@@ -65,7 +69,9 @@ const EditUser = () => {
       lastName: formValues.lastName,
       cpf: formValues.cpf,
       birthDate: formValues.birthDate,
+      occupation: formValues.occupation,
       email: formValues.email,
+      phoneNumber: formValues.phoneNumber,
       addressList: [
         {
           street: formValues.street,
@@ -122,6 +128,10 @@ const EditUser = () => {
 
     if (!formValues.birthDate) {
       errors.birthDate = "Campo não informado";
+    }
+
+    if (!formValues.occupation) {
+      errors.occupation = "Campo não informado";
     } 
 
     if (!formValues.email) {
@@ -133,6 +143,10 @@ const EditUser = () => {
       if (isDuplicateEmail) {
         errors.email = "E-mail já cadastrado";
       }
+    }
+
+    if (!formValues.phoneNumber) {
+      errors.phoneNumber = "Campo não informado";
     }
 
     if (!formValues.street) {
@@ -189,7 +203,7 @@ const EditUser = () => {
       <h1>Editar usuário</h1>
       <form onSubmit={(e) => editUser(e)}>
       <div className="info">
-          <div className="form-control size-2">
+          <div className="form-control size-00">
             <label htmlFor="firstName">Nome:</label>
             <input
               type="text"
@@ -201,7 +215,7 @@ const EditUser = () => {
             />
             {formErrors.firstName && <span className="error-message">{formErrors.firstName}</span>}
           </div>
-          <div className="form-control size-2">
+          <div className="form-control size-00">
             <label htmlFor="lastName">Sobrenome:</label>
             <input
               type="text"
@@ -213,7 +227,7 @@ const EditUser = () => {
             />
             {formErrors.lastName && <span className="error-message">{formErrors.lastName}</span>}
           </div>
-          <div className="form-control size-2">
+          <div className="form-control size-01">
             <label htmlFor="cpf">CPF:</label>
             <input
               type="text"
@@ -227,7 +241,7 @@ const EditUser = () => {
           </div>
         </div>
         <div className="info">
-          <div className="form-control size-2">
+          <div className="form-control size-02 ">
             <label htmlFor="birthDate">Data de nascimento:</label>
             <input
               type="text"
@@ -239,7 +253,21 @@ const EditUser = () => {
             />
             {formErrors.birthDate && <span className="error-message">{formErrors.birthDate}</span>}
           </div>
-          <div className="form-control size-3">
+          <div className="form-control size-03 ">
+            <label htmlFor="occupation">Ocupação:</label>
+            <input
+              type="text"
+              name="occupation"
+              id="occupation"
+              placeholder="Digite aqui"
+              onChange={handleChange}
+              value={formValues.occupation}
+            />
+            {formErrors.occupation && <span className="error-message">{formErrors.occupation}</span>}
+          </div>
+        </div>
+        <div className="info">
+          <div className="form-control size-03">
             <label htmlFor="email">Email:</label>
             <input
               type="text"
@@ -251,9 +279,21 @@ const EditUser = () => {
             />
             {formErrors.email && <span className="error-message">{formErrors.email}</span>}
           </div>
+          <div className="form-control size-02">
+            <label htmlFor="phoneNumber">Celular:</label>
+            <input
+              type="text"
+              name="phoneNumber"
+              id="phoneNumber"
+              placeholder="Digite aqui"
+              onChange={handleChange}
+              value={formValues.phoneNumber}
+            />
+            {formErrors.phoneNumber && <span className="error-message">{formErrors.phoneNumber}</span>}
+          </div>
         </div>
         <div className="info">
-          <div className="form-control size-4">
+          <div className="form-control size-04">
             <label htmlFor="street">Logradouro:</label>
             <input
               type="text"
@@ -265,7 +305,7 @@ const EditUser = () => {
             />
             {formErrors.street && <span className="error-message">{formErrors.street}</span>}
           </div>
-          <div className="form-control size-1">
+          <div className="form-control size-05">
             <label htmlFor="number">Número:</label>
               <input
               type="number"
@@ -279,7 +319,7 @@ const EditUser = () => {
           </div>
         </div>
         <div className="info">        
-          <div className="form-control size-2">
+          <div className="form-control size-00">
             <label htmlFor="district">Bairro:</label>
             <input
               type="text"
@@ -291,7 +331,7 @@ const EditUser = () => {
             />
             {formErrors.district && <span className="error-message">{formErrors.district}</span>}
           </div>
-          <div className="form-control size-2">
+          <div className="form-control size-06">
             <label htmlFor="city">Cidade:</label>
             <input
               type="text"
@@ -303,7 +343,7 @@ const EditUser = () => {
             />
             {formErrors.city && <span className="error-message">{formErrors.city}</span>}
           </div>
-          <div className="form-control size-2">
+          <div className="form-control size-06">
             <label htmlFor="state">Estado:</label>
             <input
               type="text"
